@@ -1,0 +1,63 @@
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using System.Linq;
+
+public class InteractableManager : MonoBehaviour
+{
+
+    List<Interactable> m_interactables;
+
+    int m_activeInteractable = -1;
+
+    void Start()
+    {
+        m_interactables = GetComponents<Interactable>().ToList<Interactable>();
+        m_interactables = m_interactables.OrderByDescending(o => o.Priotity).ToList();
+    }
+
+
+    private void OnTriggerStay(Collider other)
+    {
+        if (other.gameObject.CompareTag("Player"))
+        {
+            int i = 0;
+            PlayerController player = other.GetComponent<PlayerController>();
+            foreach (Interactable interactable in m_interactables)
+            {
+                if (interactable.IsInteractable(player))
+                {
+                    if(m_activeInteractable == i)
+                    {
+                        interactable.OnStay(player);
+                    }
+                    else
+                    {
+                        if(m_activeInteractable >= 0)
+                        {
+                            m_interactables[m_activeInteractable].OnExit(player);
+                        }
+
+                        interactable.OnEnter(player);
+                        m_activeInteractable = i;
+                    }
+
+                    break;
+                }
+                ++i;
+            }
+        }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.gameObject.CompareTag("Player") && m_activeInteractable >= 0)
+        {
+            m_interactables[m_activeInteractable].OnExit(other.GetComponent<PlayerController>());
+            m_activeInteractable = -1;
+        }
+    }
+
+
+
+}

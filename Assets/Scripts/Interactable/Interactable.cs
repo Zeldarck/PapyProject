@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(InteractableManager))]
 public abstract class Interactable : MonoBehaviour
 {
 
@@ -10,59 +11,41 @@ public abstract class Interactable : MonoBehaviour
 
     bool m_playerInside = false;
 
-    private void OnTriggerStay(Collider other)
-    {
-        if (other.gameObject.CompareTag("Player"))
-        {
-            Vector3 vecToMe = gameObject.transform.position - other.transform.position;
-            float angle = Vector2.Angle( new Vector2(other.transform.forward.x,other.transform.forward.z) , new Vector2(vecToMe.x, vecToMe.z));
+    [SerializeField, Tooltip("higher is better")]
+    int m_priotity = 0;
 
-            if(angle <= m_coneAngle )
-            {
-                if (!m_playerInside)
-                {
-                    OnEnter(other.gameObject);
-                }
-                else
-                {
-                    OnStay(other.gameObject);
-                }
-            }
-            else if (m_playerInside)
-            {
-                Debug.Log("Bad angle : " + angle + " compare to " + m_coneAngle);
-                OnExit(other.gameObject);
-            }
+    [Header("Debug")]
+    [SerializeField]
+    string m_debugName = "debugName";
 
 
-        }
-    }
-
-    private void OnTriggerExit(Collider other)
-    {
-        if (other.gameObject.CompareTag("Player") && m_playerInside)
-        {
-            OnExit(other.gameObject);
-        }
-    }
+    public int Priotity { get => m_priotity; set => m_priotity = value; }
 
 
-    protected void OnEnter(GameObject a_player)
+    public void OnEnter(PlayerController a_player)
     {
         m_playerInside = true;
-        Debug.Log("PLayer Enter");
+        Debug.Log("PLayer Enter " + m_debugName);
     }
 
-    protected void OnExit(GameObject a_player)
+    public void OnExit(PlayerController a_player)
     {
         m_playerInside = false;
-        Debug.Log("PLayer Exit");
+        Debug.Log("PLayer Exit " + m_debugName);
     }
 
-    protected void OnStay(GameObject a_player)
+    public void OnStay(PlayerController a_player)
     {
         //Debug.Log("PLayer Stay");
     }
 
+    public bool IsInteractable(PlayerController a_player)
+    {
+
+        Vector3 vecToMe = gameObject.transform.position - a_player.transform.position;
+        float angle = Vector2.Angle(new Vector2(a_player.transform.forward.x, a_player.transform.forward.z), new Vector2(vecToMe.x, vecToMe.z));
+
+        return angle <= m_coneAngle;
+    }
 
 }
