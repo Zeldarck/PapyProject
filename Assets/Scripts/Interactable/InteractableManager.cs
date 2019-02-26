@@ -9,6 +9,7 @@ public class InteractableManager : MonoBehaviour
     List<Interactable> m_interactables;
 
     int m_activeInteractable = -1;
+    int m_activeTriggers = 0;
 
     void Start()
     {
@@ -16,8 +17,16 @@ public class InteractableManager : MonoBehaviour
         m_interactables = m_interactables.OrderByDescending(o => o.Priotity).ToList();
     }
 
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.CompareTag("Player"))
+        {
+            ++m_activeTriggers;
+        }
+    }
 
-    private void OnTriggerStay(Collider other)
+
+        private void OnTriggerStay(Collider other)
     {
         if (other.gameObject.CompareTag("Player"))
         {
@@ -51,8 +60,10 @@ public class InteractableManager : MonoBehaviour
 
     private void OnTriggerExit(Collider other)
     {
-        if (other.gameObject.CompareTag("Player") && m_activeInteractable >= 0)
+        if (other.gameObject.CompareTag("Player") && m_activeInteractable >= 0 && --m_activeTriggers == 0)
         {
+            ;
+
             m_interactables[m_activeInteractable].OnExit(other.GetComponent<PlayerController>());
             m_activeInteractable = -1;
         }

@@ -1200,6 +1200,7 @@ GameObject:
   - component: {fileID: 2045748240}
   - component: {fileID: 2045748239}
   - component: {fileID: 2045748238}
+  - component: {fileID: 2045748237}
   m_Layer: 9
   m_Name: Interactable
   m_TagString: Untagged
@@ -1291,6 +1292,19 @@ BoxCollider:
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 2.06, y: 1.55, z: 2.32}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!135 &2045748237
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2045748231}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 2.26
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &2045748238
 MonoBehaviour:
