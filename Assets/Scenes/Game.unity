@@ -398,7 +398,6 @@ GameObject:
   - component: {fileID: 745727951}
   - component: {fileID: 745727950}
   - component: {fileID: 745727949}
-  - component: {fileID: 745727953}
   - component: {fileID: 745727954}
   - component: {fileID: 745727955}
   m_Layer: 0
@@ -416,7 +415,7 @@ CapsuleCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 745727948}
   m_Material: {fileID: 0}
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_Enabled: 1
   m_Radius: 0.5000001
   m_Height: 1.7509038
@@ -482,28 +481,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!195 &745727953
-NavMeshAgent:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 745727948}
-  m_Enabled: 1
-  m_AgentTypeID: 0
-  m_Radius: 0.5000001
-  m_Speed: 10
-  m_Acceleration: 100
-  avoidancePriority: 50
-  m_AngularSpeed: 120
-  m_StoppingDistance: 0
-  m_AutoTraverseOffMeshLink: 1
-  m_AutoBraking: 1
-  m_AutoRepath: 1
-  m_Height: 2
-  m_BaseOffset: 1
-  m_WalkableMask: 4294967295
-  m_ObstacleAvoidanceType: 4
 --- !u!114 &745727954
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -516,7 +493,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1e80b9cc76c473645aa116c5be018a6a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_speed: 2
+  m_speed: 20
 --- !u!54 &745727955
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -531,7 +508,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 0
+  m_Constraints: 80
   m_CollisionDetection: 1
 --- !u!1 &983179665
 GameObject:

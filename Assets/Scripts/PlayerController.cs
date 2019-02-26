@@ -1,75 +1,54 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.AI;
-using UnityEngine.Networking;
 
 
 
 public class PlayerController : MonoBehaviour
 {
 
-    NavMeshAgent agent;
+
+    Rigidbody m_playerRigidbody;          
+
 
     [SerializeField]
     float m_speed;
 
 
     void Start () {
-        agent = GetComponent<NavMeshAgent>();
         Camera.main.GetComponent<CameraFollow>().ObjectToFollow = gameObject;
-        //agent.speed = m_speed;   
-    }
 
-    void Update () {
-
-        bool isMoving = false;
-        Vector3 target = transform.position;
-
-        if (Input.GetKey(KeyCode.Z))
-        {
-            target += gameObject.transform.forward * m_speed;
-            isMoving = true;
-        }
-        if (Input.GetKey(KeyCode.Q))
-        {
-            target += gameObject.transform.right * -1 * m_speed;
-            isMoving = true;
-        }
-       /* if (Input.GetKey(KeyCode.S))
-        {
-            target += gameObject.transform.forward * -1 * m_speed;
-            isMoving = true;
-        }*/
-        if (Input.GetKey(KeyCode.D))
-        {
-            target += gameObject.transform.right * m_speed;
-            isMoving = true;
-        }
-
-        if (isMoving)
-        {
-            agent.ResetPath();
-        }
-
-        if (Input.GetButtonDown("Fire2") && !isMoving)
-        {
-            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-            RaycastHit hit;
-
-            if (Physics.Raycast(ray, out hit))
-            {
-                target = hit.point;
-                isMoving = true;
-            }
-        }
-
-
-        if (isMoving)
-        {
-            agent.SetDestination(target);
-        }
-
+        m_playerRigidbody = GetComponent<Rigidbody>();
 
     }
+
+    void FixedUpdate()
+    {
+        Move();
+    }
+
+    void Move()
+    {
+
+        float horizontal = Input.GetAxisRaw("Horizontal");
+        float vertical = Input.GetAxisRaw("Vertical");
+
+        Vector3 movement = new Vector3(horizontal, 0f, vertical);
+
+        movement = movement.normalized * m_speed * Time.deltaTime;
+
+        m_playerRigidbody.MovePosition(transform.position + movement);
+
+        Turning(movement);
+
+    }
+
+    void Turning(Vector3 a_movement)
+    {
+        if (a_movement != Vector3.zero)
+        {            
+            Quaternion rotation = Quaternion.LookRotation(a_movement.normalized, Vector3.up);
+            m_playerRigidbody.MoveRotation(rotation);
+        }
+    }
+
 }
