@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
+using System;
 
 public class InteractableManager : MonoBehaviour
 {
@@ -47,8 +48,11 @@ public class InteractableManager : MonoBehaviour
                             m_interactables[m_activeInteractable].OnExit(player);
                         }
 
-                        interactable.OnEnter(player);
-                        m_activeInteractable = i;
+                        if (player.SetInteractable(m_interactables[i]))
+                        {
+                            interactable.OnEnter(player);
+                            m_activeInteractable = i;
+                        }
                     }
 
                     break;
@@ -58,14 +62,17 @@ public class InteractableManager : MonoBehaviour
         }
     }
 
+    public void Release(PlayerController a_player)
+    {
+        m_interactables[m_activeInteractable].OnExit(a_player);
+        m_activeInteractable = -1;
+    }
+
     private void OnTriggerExit(Collider other)
     {
         if (other.gameObject.CompareTag("Player") && m_activeInteractable >= 0 && --m_activeTriggers == 0)
         {
-            ;
-
-            m_interactables[m_activeInteractable].OnExit(other.GetComponent<PlayerController>());
-            m_activeInteractable = -1;
+            other.GetComponent<PlayerController>().ResetInteractable();
         }
     }
 

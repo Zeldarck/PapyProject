@@ -14,11 +14,27 @@ public class PlayerController : MonoBehaviour
     float m_speed;
 
 
+
+    Interactable m_currentInteractable;
+
+    public Interactable CurrentInteractable { get => m_currentInteractable; }
+
     void Start () {
         Camera.main.GetComponent<CameraFollow>().ObjectToFollow = gameObject;
 
         m_playerRigidbody = GetComponent<Rigidbody>();
 
+    }
+
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.E))
+        {
+            if(m_currentInteractable != null)
+            {
+                m_currentInteractable.Interact(this);
+            }
+        }
     }
 
     void FixedUpdate()
@@ -49,6 +65,22 @@ public class PlayerController : MonoBehaviour
             Quaternion rotation = Quaternion.LookRotation(a_movement.normalized, Vector3.up);
             m_playerRigidbody.MoveRotation(rotation);
         }
+    }
+
+    public bool SetInteractable(Interactable a_interactable)
+    {
+        if(m_currentInteractable == null || m_currentInteractable.gameObject == a_interactable.gameObject)
+        {
+            m_currentInteractable = a_interactable;
+            return true;
+        }
+        return false;
+    }
+
+    public void ResetInteractable()
+    {
+        m_currentInteractable.GetComponent<InteractableManager>().Release(this);
+        m_currentInteractable = null;
     }
 
 }

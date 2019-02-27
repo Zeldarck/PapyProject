@@ -48,4 +48,11 @@ public abstract class Interactable : MonoBehaviour
         return angle <= m_coneAngle;
     }
 
+    public bool Interact(PlayerController a_player)
+    {
+        Debug.Log("Interact with " + m_debugName);
+        return true;
+    }
+
+
 }
