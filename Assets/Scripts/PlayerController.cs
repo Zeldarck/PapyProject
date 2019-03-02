@@ -20,6 +20,7 @@ public class PlayerController : MonoBehaviour
     public Interactable CurrentInteractable { get => m_currentInteractable; }
 
     void Start () {
+
         Camera.main.GetComponent<CameraFollow>().ObjectToFollow = gameObject;
 
         m_playerRigidbody = GetComponent<Rigidbody>();
