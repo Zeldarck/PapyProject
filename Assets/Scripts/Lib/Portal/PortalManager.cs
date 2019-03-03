@@ -17,7 +17,6 @@ public class PortalManager : Singleton<PortalManager>
         }
         else
         {
-            //DontDestroyOnLoad(a_portal);
             m_portals.Add(a_portal);
             return true;
         }

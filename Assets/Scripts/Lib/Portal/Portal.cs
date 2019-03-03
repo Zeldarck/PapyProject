@@ -6,15 +6,24 @@ using UnityEngine.SceneManagement;
 public class Portal : MonoBehaviour
 {
 
-    bool m_isUsable = false;
-
     [SerializeField]
+    TriggerObservable m_scene1Trigger;
+    [SerializeField]
+    TriggerObservable m_scene2Trigger;
+    [SerializeField]
+    TriggerObservable m_middleTrigger;
+
+
     string m_scene1;
     [SerializeField]
     string m_scene2;
 
 
-    string m_destinationScene = "";
+    bool m_isUsable = false;
+
+
+    bool m_scene2Loaded = false;
+    bool m_scene2Loading = false;
 
     public string Scene1 { get => m_scene1; set => m_scene1 = value; }
     public string Scene2 { get => m_scene2; set => m_scene2 = value; }
@@ -23,32 +32,52 @@ public class Portal : MonoBehaviour
 
     private void Start()
     {
+
+        m_scene1 = gameObject.scene.name;
+
         IsUsable = PortalManager.Instance.AddPortal(this);
+
+
+        m_scene1Trigger.Register(null, OnStaySide, null);
+        m_scene2Trigger.Register(null, OnStaySide, null);
+        m_middleTrigger.Register(null, OnStayMiddle, null);
     }
 
 
-    private void OnTriggerEnter(Collider other)
+    private void OnStaySide(TriggerObservable a_trigger, Collider a_other)
     {
-        if (IsUsable)
+        if (IsUsable && m_scene2Loaded && a_other.CompareTag("Player"))
         {
-            m_destinationScene = (SceneManager.GetActiveScene().name == Scene1 ? Scene2 : Scene1);
-            SceneManager.LoadScene(m_destinationScene, LoadSceneMode.Additive);
-            Reposition();
+            Scene scene;
+            if (a_trigger == m_scene1Trigger)
+            {
+                scene = SceneManager.GetSceneByName(Scene2);
+            }
+            else
+            {
+                scene = SceneManager.GetSceneByName(Scene1);
+                m_isUsable = false;
+            }
+            SceneManager.UnloadSceneAsync(scene);
+            m_scene2Loaded = false;
         }
     }
 
-    private void OnTriggerExit(Collider other)
+
+    private void OnStayMiddle(TriggerObservable a_trigger, Collider a_other)
     {
-        if (IsUsable)
+        if (IsUsable && !m_scene2Loaded && !m_scene2Loading && a_other.CompareTag("Player"))
         {
-            SceneManager.UnloadSceneAsync(SceneManager.GetActiveScene());
+            SceneManager.LoadSceneAsync(m_scene2, LoadSceneMode.Additive);
+            Reposition();
+            m_scene2Loading = true;
         }
     }
 
 
     private void Reposition()
     {
-        Scene scene = SceneManager.GetSceneByName(m_destinationScene);
+        Scene scene = SceneManager.GetSceneByName(m_scene2);
         if (scene.isLoaded)
         {
             Vector3 offset = Vector3.zero;
@@ -86,6 +115,8 @@ public class Portal : MonoBehaviour
 
             root.transform.position += offset;
 
+            m_scene2Loaded = true;
+            m_scene2Loading = false;
         }
         else
         {
