@@ -21,7 +21,7 @@ public class Portal : MonoBehaviour
 
     bool m_isUsable = false;
 
-
+    bool m_insideMiddle = false;
     bool m_scene2Loaded = false;
     bool m_scene2Loading = false;
 
@@ -40,13 +40,13 @@ public class Portal : MonoBehaviour
 
         m_scene1Trigger.Register(null, OnStaySide, null);
         m_scene2Trigger.Register(null, OnStaySide, null);
-        m_middleTrigger.Register(null, OnStayMiddle, null);
+        m_middleTrigger.Register(OnEnterMiddle, null, OnExitMiddle);
     }
 
 
     private void OnStaySide(TriggerObservable a_trigger, Collider a_other)
     {
-        if (IsUsable && m_scene2Loaded && a_other.CompareTag("Player"))
+        if (IsUsable && m_scene2Loaded && !m_insideMiddle && a_other.CompareTag("Player"))
         {
             Scene scene;
             if (a_trigger == m_scene1Trigger)
@@ -64,13 +64,25 @@ public class Portal : MonoBehaviour
     }
 
 
-    private void OnStayMiddle(TriggerObservable a_trigger, Collider a_other)
+    private void OnEnterMiddle(TriggerObservable a_trigger, Collider a_other)
     {
-        if (IsUsable && !m_scene2Loaded && !m_scene2Loading && a_other.CompareTag("Player"))
+        if (IsUsable && a_other.CompareTag("Player"))
         {
-            SceneManager.LoadSceneAsync(m_scene2, LoadSceneMode.Additive);
-            Reposition();
-            m_scene2Loading = true;
+            m_insideMiddle = true;
+            if (!m_scene2Loaded && !m_scene2Loading)
+            {
+                SceneManager.LoadSceneAsync(m_scene2, LoadSceneMode.Additive);
+                Reposition();
+                m_scene2Loading = true;
+            }
+        }
+    }
+
+    private void OnExitMiddle(TriggerObservable a_trigger, Collider a_other)
+    {
+        if (IsUsable  && a_other.CompareTag("Player"))
+        {
+            m_insideMiddle = false;
         }
     }
 
