@@ -141,10 +141,23 @@ public static class Utils {
         MonoBehaviourSingleton.Instance.StartCoroutine(TriggerNextFrameCoroutine(a_callback));
     }
 
+    public static void TriggerWaitForSeconds(float a_seconds, Action a_callback)
+    {
+        MonoBehaviourSingleton.Instance.StartCoroutine(TriggerWaitForSecondsCoroutine(a_seconds, a_callback));
+    }
+
+
+
 
     static IEnumerator TriggerNextFrameCoroutine(Action a_callback)
     {
         yield return new WaitForEndOfFrame();
+        a_callback();
+    }
+
+    static IEnumerator TriggerWaitForSecondsCoroutine(float a_seconds, Action a_callback)
+    {
+        yield return new WaitForSeconds(a_seconds);
         a_callback();
     }
 

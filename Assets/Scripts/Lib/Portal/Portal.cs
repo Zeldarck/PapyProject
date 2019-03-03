@@ -22,6 +22,8 @@ public class Portal : MonoBehaviour
     bool m_isUsable = false;
 
     bool m_insideMiddle = false;
+    int m_lastTriggerInside = -1;
+
     bool m_scene2Loaded = false;
     bool m_scene2Loading = false;
 
@@ -44,23 +46,28 @@ public class Portal : MonoBehaviour
     }
 
 
+
+
     private void OnStaySide(TriggerObservable a_trigger, Collider a_other)
     {
-        if (IsUsable && m_scene2Loaded && !m_insideMiddle && a_other.CompareTag("Player"))
+
+        if (IsUsable && a_other.CompareTag("Player"))
         {
-            Scene scene;
             if (a_trigger == m_scene1Trigger)
             {
-                scene = SceneManager.GetSceneByName(Scene2);
+                m_lastTriggerInside = 0;
             }
             else
             {
-                scene = SceneManager.GetSceneByName(Scene1);
-                m_isUsable = false;
+                m_lastTriggerInside = 1;
             }
-            SceneManager.UnloadSceneAsync(scene);
-            m_scene2Loaded = false;
+
+            if (m_scene2Loaded && !m_insideMiddle)
+            {
+                Unload(() => { return a_trigger == m_scene1Trigger; });
+            }
         }
+
     }
 
 
@@ -83,9 +90,32 @@ public class Portal : MonoBehaviour
         if (IsUsable  && a_other.CompareTag("Player"))
         {
             m_insideMiddle = false;
+
+            Utils.TriggerNextFrame(() =>
+           {
+               if (m_scene2Loaded && !m_scene1Trigger.IsInside("Player") && !m_scene2Trigger.IsInside("Player") && m_lastTriggerInside != -1)
+               {
+                 Unload(() => { return m_lastTriggerInside == 0; });                
+               }
+           });
         }
     }
 
+    private void Unload(System.Func<bool> a_comparison)
+    {
+        Scene scene;
+        if (a_comparison())
+        {
+            scene = SceneManager.GetSceneByName(Scene2);
+        }
+        else
+        {
+            scene = SceneManager.GetSceneByName(Scene1);
+            m_isUsable = false;
+        }
+        SceneManager.UnloadSceneAsync(scene);
+        m_scene2Loaded = false;
+    }
 
     private void Reposition()
     {
