@@ -13,13 +13,13 @@ public class PlayerController : MonoBehaviour
     [SerializeField]
     float m_speed;
 
+    public Interactable CurrentInteractable { get; private set; }
 
-
-    Interactable m_currentInteractable;
-
-    public Interactable CurrentInteractable { get => m_currentInteractable; }
+    public Inventory Inventory { get; private set; }
 
     void Start () {
+
+        Inventory = new Inventory();
 
         Camera.main.GetComponent<CameraFollow>().ObjectToFollow = gameObject;
 
@@ -31,9 +31,9 @@ public class PlayerController : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.E))
         {
-            if(m_currentInteractable != null)
+            if(CurrentInteractable != null)
             {
-                m_currentInteractable.Interact(this);
+                CurrentInteractable.Interact(this);
             }
         }
     }
@@ -70,9 +70,9 @@ public class PlayerController : MonoBehaviour
 
     public bool SetInteractable(Interactable a_interactable)
     {
-        if(m_currentInteractable == null || m_currentInteractable.gameObject == a_interactable.gameObject)
+        if(CurrentInteractable == null || CurrentInteractable.gameObject == a_interactable.gameObject)
         {
-            m_currentInteractable = a_interactable;
+            CurrentInteractable = a_interactable;
             return true;
         }
         return false;
@@ -80,8 +80,8 @@ public class PlayerController : MonoBehaviour
 
     public void ResetInteractable()
     {
-        m_currentInteractable.GetComponent<InteractableManager>().Release(this);
-        m_currentInteractable = null;
+        CurrentInteractable.GetComponent<InteractableManager>().Release(this);
+        CurrentInteractable = null;
     }
 
 }
