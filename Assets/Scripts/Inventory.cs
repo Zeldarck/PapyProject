@@ -20,6 +20,7 @@ public class Inventory
     public void AddItem(Item a_item)
     {
         m_items.Add(a_item);
+        Debug.Log("Adding item [Inventory] : " + a_item.Name);
     }
 
     public bool RemoveItem(Item a_item)

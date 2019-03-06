@@ -5,7 +5,13 @@ using UnityEngine;
 [RequireComponent(typeof(InteractableManager))]
 public abstract class Interactable : MonoBehaviour
 {
+    [Header("Debug")]
+    [SerializeField]
+    string m_debugName = "debugName";
 
+
+    [Space(20)]
+    [Header("Variables")]
     [SerializeField]
     float m_coneAngle = 180.0f;
 
@@ -14,9 +20,6 @@ public abstract class Interactable : MonoBehaviour
     [SerializeField, Tooltip("higher is better")]
     int m_priotity = 0;
 
-    [Header("Debug")]
-    [SerializeField]
-    string m_debugName = "debugName";
 
 
     public int Priotity { get => m_priotity; set => m_priotity = value; }
@@ -39,7 +42,7 @@ public abstract class Interactable : MonoBehaviour
         //Debug.Log("PLayer Stay");
     }
 
-    public bool IsInteractable(PlayerController a_player)
+    public virtual bool IsInteractable(PlayerController a_player)
     {
 
         Vector3 vecToMe = gameObject.transform.position - a_player.transform.position;
@@ -48,11 +51,15 @@ public abstract class Interactable : MonoBehaviour
         return angle <= m_coneAngle;
     }
 
-    public bool Interact(PlayerController a_player)
+    public virtual bool Interact(PlayerController a_player)
     {
         Debug.Log("Interact with " + m_debugName);
         return true;
     }
 
+    protected virtual void Start()
+    {
+        
+    }
 
 }
