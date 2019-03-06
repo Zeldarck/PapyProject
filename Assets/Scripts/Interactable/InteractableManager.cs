@@ -70,7 +70,7 @@ public class InteractableManager : MonoBehaviour
 
     private void OnTriggerExit(Collider other)
     {
-        if (other.gameObject.CompareTag("Player") && m_activeInteractable >= 0 && --m_activeTriggers == 0)
+        if (other.gameObject.CompareTag("Player") && --m_activeTriggers == 0 && m_activeInteractable >= 0)
         {
             other.GetComponent<PlayerController>().ResetInteractable();
         }

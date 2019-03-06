@@ -7,7 +7,7 @@ public abstract class Interactable : MonoBehaviour
 {
     [Header("Debug")]
     [SerializeField]
-    string m_debugName = "debugName";
+    protected string m_debugName = "debugName";
 
 
     [Space(20)]
@@ -28,13 +28,13 @@ public abstract class Interactable : MonoBehaviour
     public void OnEnter(PlayerController a_player)
     {
         m_playerInside = true;
-        Debug.Log("PLayer Enter " + m_debugName);
+        DebugPrint("PLayer Enter");
     }
 
     public void OnExit(PlayerController a_player)
     {
         m_playerInside = false;
-        Debug.Log("PLayer Exit " + m_debugName);
+        DebugPrint("PLayer Exit");
     }
 
     public void OnStay(PlayerController a_player)
@@ -53,13 +53,18 @@ public abstract class Interactable : MonoBehaviour
 
     public virtual bool Interact(PlayerController a_player)
     {
-        Debug.Log("Interact with " + m_debugName);
+        DebugPrint("Interact");
         return true;
     }
 
     protected virtual void Start()
     {
         
+    }
+
+    protected void DebugPrint(string a_message)
+    {
+        Debug.Log("["+ m_debugName + "] : " + a_message);
     }
 
 }

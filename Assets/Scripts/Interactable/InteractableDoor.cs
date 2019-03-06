@@ -9,32 +9,59 @@ public class InteractableDoor : Interactable
     bool m_isOpen;
 
     [SerializeField]
+    bool m_isLock;
+
+    [SerializeField]
+    bool m_destroyKeyWhenUsed;
+
+    [SerializeField]
     Item m_key;
 
     public override bool IsInteractable(PlayerController a_player)
     {
-        return base.IsInteractable(a_player) && a_player.Inventory.HasItem(m_key) && !m_isOpen;
+        return base.IsInteractable(a_player) && ((a_player.Inventory.HasItem(m_key) && m_isLock) || !m_isLock);
     }
 
     public override bool Interact(PlayerController a_player)
     {
         bool res = base.Interact(a_player);
 
-        if (!m_isOpen)
+        if (m_isLock)
         {
-            a_player.Inventory.RemoveItem(m_key);
-            m_isOpen = true;
+            if (m_destroyKeyWhenUsed)
+            {
+                a_player.Inventory.RemoveItem(m_key);
+            }
+            m_isLock = false;
+            DebugPrint("Unlock");
         }
 
-        if (res)
+        if (m_isOpen)
         {
-            transform.position = new Vector3(transform.position.x, -5, transform.position.z);
+            Close();
         }
-
+        else
+        {
+            Open();
+        }
 
         a_player.ResetInteractable();
 
         return res;
+    }
+
+    void Open()
+    {
+        DebugPrint("Open");
+        transform.position = new Vector3(transform.position.x + 5, transform.position.y, transform.position.z);
+        m_isOpen = true;
+    }
+
+    void Close()
+    {
+        DebugPrint("Close");
+        transform.position = new Vector3(transform.position.x - 5, transform.position.y, transform.position.z);
+        m_isOpen = false;
     }
 
 

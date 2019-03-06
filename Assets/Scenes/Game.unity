@@ -256,6 +256,8 @@ MonoBehaviour:
   m_coneAngle: 180
   m_priotity: 0
   m_isOpen: 0
+  m_isLock: 1
+  m_destroyKeyWhenUsed: 0
   m_key: {fileID: 11400000, guid: 3b4977f978fb85e4180cc92c8b0bece7, type: 2}
 --- !u!135 &165345035
 SphereCollider:
@@ -944,7 +946,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_debugName: Key Main Door
   m_coneAngle: 180
-  m_priotity: 0
+  m_priotity: 1
   m_item: {fileID: 11400000, guid: 3b4977f978fb85e4180cc92c8b0bece7, type: 2}
 --- !u!114 &1332523176
 MonoBehaviour:
