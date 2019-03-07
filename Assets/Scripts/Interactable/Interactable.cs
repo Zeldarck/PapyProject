@@ -62,6 +62,12 @@ public abstract class Interactable : MonoBehaviour
         
     }
 
+    protected virtual void Update()
+    {
+
+    }
+
+
     protected void DebugPrint(string a_message)
     {
         Debug.Log("["+ m_debugName + "] : " + a_message);

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Globalization;
 using UnityEngine;
 
 public static class Utils {
@@ -159,6 +160,32 @@ public static class Utils {
     {
         yield return new WaitForSeconds(a_seconds);
         a_callback();
+    }
+
+
+    public static Color ParseColor(string a_hexcolor)
+    {
+        if (a_hexcolor.StartsWith("#"))
+        {
+            a_hexcolor = a_hexcolor.Substring(1);
+        }
+
+        if (a_hexcolor.StartsWith("0x"))
+        {
+            a_hexcolor = a_hexcolor.Substring(2);
+        }
+
+        if (a_hexcolor.Length != 8)
+        {
+            throw new Exception(string.Format("{0} is not a valid color string.", a_hexcolor));
+        }
+
+        byte r = byte.Parse(a_hexcolor.Substring(0, 2), NumberStyles.HexNumber);
+        byte g = byte.Parse(a_hexcolor.Substring(2, 2), NumberStyles.HexNumber);
+        byte b = byte.Parse(a_hexcolor.Substring(4, 2), NumberStyles.HexNumber);
+        byte a = byte.Parse(a_hexcolor.Substring(6, 2), NumberStyles.HexNumber);
+
+        return new Color32(r, g, b, a);
     }
 
 

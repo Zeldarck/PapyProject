@@ -14,3 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_sprite: {fileID: 0}
   m_name: KeyMainDoor
+  m_destroyAfterUse: 1

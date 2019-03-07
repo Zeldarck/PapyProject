@@ -17,6 +17,8 @@ public class PlayerController : MonoBehaviour
 
     public Inventory Inventory { get; private set; }
 
+    public bool Freeze { get; set; }
+
     void Start () {
 
         Inventory = new Inventory();
@@ -29,18 +31,24 @@ public class PlayerController : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.E))
+        if (!Freeze)
         {
-            if(CurrentInteractable != null)
+            if (Input.GetKeyDown(KeyCode.E))
             {
-                CurrentInteractable.Interact(this);
+                if (CurrentInteractable != null)
+                {
+                    CurrentInteractable.Interact(this);
+                }
             }
         }
     }
 
     void FixedUpdate()
     {
-        Move();
+        if (!Freeze)
+        {
+            Move();
+        }
     }
 
     void Move()
@@ -67,6 +75,7 @@ public class PlayerController : MonoBehaviour
             m_playerRigidbody.MoveRotation(rotation);
         }
     }
+
 
     public bool SetInteractable(Interactable a_interactable)
     {
