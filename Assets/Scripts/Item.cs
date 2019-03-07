@@ -10,7 +10,9 @@ public class Item : ScriptableObject
     [SerializeField]
     string m_name;
     [SerializeField]
+    bool m_destroyAfterUse;
 
 
     public string Name { get => m_name; }
+    public bool DestroyAfterUse { get => m_destroyAfterUse; }
 }
