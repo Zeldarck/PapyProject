@@ -10,10 +10,6 @@ public class InteractableDoor : Interactable
 
     [SerializeField]
     bool m_isLock;
-
-    [SerializeField]
-    bool m_destroyKeyWhenUsed;
-
     [SerializeField]
     Item m_key;
 
@@ -28,10 +24,8 @@ public class InteractableDoor : Interactable
 
         if (m_isLock)
         {
-            if (m_destroyKeyWhenUsed)
-            {
-                a_player.Inventory.RemoveItem(m_key);
-            }
+            a_player.Inventory.UseItem(m_key);
+            
             m_isLock = false;
             DebugPrint("Unlock");
         }

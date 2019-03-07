@@ -9,6 +9,8 @@ public class Item : ScriptableObject
     Sprite m_sprite;
     [SerializeField]
     string m_name;
+    [SerializeField]
+
 
     public string Name { get => m_name; }
 }

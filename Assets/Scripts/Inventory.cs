@@ -23,6 +23,23 @@ public class Inventory
         Debug.Log("Adding item [Inventory] : " + a_item.Name);
     }
 
+    public bool UseItem(Item a_item)
+    {
+        if (!HasItem(a_item))
+        {
+            return false;
+        }
+
+        if (a_item.DestroyAfterUse)
+        {
+            RemoveItem(a_item);
+        }
+
+        Debug.Log("Use item [Inventory] : " + a_item.Name);
+
+        return true;
+    }
+
     public bool RemoveItem(Item a_item)
     {
         return m_items.Remove(a_item);
