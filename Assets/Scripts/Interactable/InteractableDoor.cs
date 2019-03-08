@@ -13,6 +13,23 @@ public class InteractableDoor : Interactable
     [SerializeField]
     Item m_key;
 
+    [SerializeField]
+    string m_keyValue;
+
+
+    protected override void Start()
+    {
+        base.Start();
+        if (KeyValueManager.Instance.KeyValueData.GetValueBool(m_keyValue + "Unlock"))
+        {
+            m_isLock = false;
+        }
+        if (KeyValueManager.Instance.KeyValueData.GetValueBool(m_keyValue + "IsOpen"))
+        {
+            Open();
+        }
+    }
+
     public override bool IsInteractable(PlayerController a_player)
     {
         return base.IsInteractable(a_player) && ((a_player.Inventory.HasItem(m_key) && m_isLock) || !m_isLock);
@@ -25,7 +42,8 @@ public class InteractableDoor : Interactable
         if (m_isLock)
         {
             a_player.Inventory.UseItem(m_key);
-            
+            a_player.KeyValueData.SetValueBool(m_keyValue + "Unlock", true);
+
             m_isLock = false;
             DebugPrint("Unlock");
         }
@@ -48,6 +66,8 @@ public class InteractableDoor : Interactable
     {
         DebugPrint("Open");
         transform.position = new Vector3(transform.position.x + 5, transform.position.y, transform.position.z);
+        KeyValueManager.Instance.KeyValueData.SetValueBool(m_keyValue + "IsOpen", true);
+    
         m_isOpen = true;
     }
 
@@ -55,6 +75,8 @@ public class InteractableDoor : Interactable
     {
         DebugPrint("Close");
         transform.position = new Vector3(transform.position.x - 5, transform.position.y, transform.position.z);
+        KeyValueManager.Instance.KeyValueData.SetValueBool(m_keyValue + "IsOpen", false);
+
         m_isOpen = false;
     }
 

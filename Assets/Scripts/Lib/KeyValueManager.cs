@@ -2,7 +2,22 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class KeyValueManager
+
+
+public class KeyValueManager : Singleton<KeyValueManager>
+{
+    public KeyValueData KeyValueData { get; private set; }
+
+    protected override void Awake()
+    {
+        base.Awake();
+        KeyValueData = new KeyValueData();
+        DontDestroyOnLoad(this);
+    }
+
+}
+
+    public class KeyValueData
 {
 
     Dictionary<string, bool> m_bools = new Dictionary<string, bool>();

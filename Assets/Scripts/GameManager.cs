@@ -9,6 +9,7 @@ public class GameManager : Singleton<GameManager>
     void Start()
     {
         SceneManager.LoadScene("Player", LoadSceneMode.Additive);
+        DontDestroyOnLoad(this);
     }
 
     // Update is called once per frame

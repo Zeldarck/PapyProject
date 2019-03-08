@@ -145,7 +145,7 @@ public class Portal : MonoBehaviour
                 portal = portals[i].GetComponent<Portal>();
                 if((Scene1 == portal.Scene1 && Scene2 == portal.Scene2) || (Scene1 == portal.Scene2 && Scene2 == portal.Scene1))
                 {
-                    offsetRotation = Quaternion.FromToRotation(portal.transform.forward,transform.forward);
+                    offsetRotation = Quaternion.FromToRotation(portal.transform.forward * -1 ,transform.forward);
 
                     break;
                 }             
