@@ -17,6 +17,8 @@ public class PlayerController : MonoBehaviour
 
     public Inventory Inventory { get; private set; }
 
+    public KeyValueManager KeyValueManager { get; private set; }
+
     public bool Freeze { get; set; }
 
     void Start () {
