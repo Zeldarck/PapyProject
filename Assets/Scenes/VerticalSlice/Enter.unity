@@ -284,8 +284,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e07e1a4da2c28154a8f558f50d999029, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  co:
-    m_conditionCommand: {fileID: 1691762965}
+  test:
+    m_conditions:
+    - m_conditions:
+      - m_conditionCommand: {fileID: 612261050}
+      - m_conditionCommand: {fileID: 1470564195}
+      - m_conditionCommand: {fileID: 1931329852}
+    - m_conditions: []
+    - m_conditions: []
+    - m_conditions: []
+    - m_conditions: []
 --- !u!65 &165345037
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -478,6 +486,23 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &612261050
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: db9b922056cb5a7468fcdfe8f8c8e65e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  test: 
+  method: test
+  pilou: 
+  toto: 1
+  rt: 
 --- !u!4 &1058227541 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2035791059632891624, guid: ab1c639fc1dee7c4caa703a32558785d,
@@ -871,8 +896,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e07e1a4da2c28154a8f558f50d999029, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  co:
-    m_conditionCommand: {fileID: 0}
+  test:
+    m_conditions: []
 --- !u!65 &1332523177
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1009,7 +1034,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1691762965
+--- !u!114 &1470564195
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1018,14 +1043,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: db9b922056cb5a7468fcdfe8f8c8e65e, type: 3}
+  m_Script: {fileID: 11500000, guid: 80b778d525d204041bc1ad63103abb9f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   test: 
-  method: test
-  pilou: 
-  toto: 1
-  rt: test
+  method: 
+  wesh: 0
+  wesh2:
+    m_conditionCommand: {fileID: 0}
 --- !u!1 &1757438298
 GameObject:
   m_ObjectHideFlags: 0
@@ -1056,6 +1081,23 @@ Transform:
   m_Father: {fileID: 1160183043}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1931329852
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 80b778d525d204041bc1ad63103abb9f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  test: 
+  method: 
+  wesh: 0
+  wesh2:
+    m_conditionCommand: {fileID: 0}
 --- !u!1 &1959974920
 GameObject:
   m_ObjectHideFlags: 0
