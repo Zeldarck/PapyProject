@@ -63,6 +63,7 @@ public class ConditionEditor : PropertyDrawer
         if (EditorGUI.EndChangeCheck())
         {
             Command.objectReferenceValue = ScriptableObject.CreateInstance(m_allConditionCommandType[newIndex]);
+            currIndex = newIndex;
         }
 
 
@@ -92,7 +93,7 @@ public class ConditionEditor : PropertyDrawer
             childObj.ApplyModifiedProperties();
 
             List<string> methodsNames = new List<string>();
-            MethodInfo[] methodInfos = m_allConditionCommandType[0].GetMethods(BindingFlags.Public | BindingFlags.Instance | BindingFlags.DeclaredOnly);
+            MethodInfo[] methodInfos = m_allConditionCommandType[currIndex].GetMethods(BindingFlags.Public | BindingFlags.Instance | BindingFlags.DeclaredOnly);
 
 
             for (int j = 0; j < methodInfos.Length; ++j)
@@ -117,11 +118,11 @@ public class ConditionEditor : PropertyDrawer
             EditorGUI.BeginChangeCheck();
 
             int newvalue2 = EditorGUI.Popup(newRecte, "Method", currIndex2, methodsNames.ToArray());
-
+            prevHeight += EditorGUI.GetPropertyHeight(Command, label, true) + EditorGUIUtility.standardVerticalSpacing;
 
             SerializedProperty ite2 = childObj.GetIterator();
 
-            while (ite2.NextVisible(true))
+            while (ite2.Next(true))
             {
 
                 if (ite2.displayName == "Method")
@@ -134,8 +135,43 @@ public class ConditionEditor : PropertyDrawer
             if (EditorGUI.EndChangeCheck())
             {
                 ite2.stringValue = methodsNames[newvalue2];
+
                 childObj.ApplyModifiedProperties();
+                currIndex2 = newvalue2;
             }
+
+            if (currIndex2 >= 0)
+            {
+
+                MethodInfo method = methodInfos[currIndex2];
+
+                
+                for (int e = 0; e < method.GetParameters().Length ; e++)
+                {
+                    ParameterInfo parametter = method.GetParameters()[e];
+
+                    SerializedProperty ite3 = childObj.GetIterator();
+
+                    while (ite3.Next(true))
+                    {
+
+                        if (ite3.name == parametter.Name)
+                        {
+                            break;
+                        }
+
+                    }
+
+                    Rect newRect = new Rect(position.x, position.y + prevHeight + EditorGUIUtility.standardVerticalSpacing, position.width, EditorGUI.GetPropertyHeight(ite3, label, true));
+                    prevHeight += newRect.height + EditorGUIUtility.standardVerticalSpacing;
+                    EditorGUI.PropertyField(newRect, ite3);
+
+                }
+
+            }
+
+            childObj.ApplyModifiedProperties();
+
 
 
 
@@ -148,6 +184,7 @@ public class ConditionEditor : PropertyDrawer
 
     }
 
+    private bool listVisibility = true;
 
 
     public override float GetPropertyHeight(SerializedProperty property, GUIContent label)
@@ -167,6 +204,29 @@ public class ConditionEditor : PropertyDrawer
             {
                 totalHeight += EditorGUI.GetPropertyHeight(ite, label, true) + EditorGUIUtility.standardVerticalSpacing;
             }
+
+            SerializedProperty method = childObj.FindProperty("method");
+            MethodInfo m = (property.FindPropertyRelative("m_conditionCommand").objectReferenceValue as ConditionCommand).GetType().GetMethod(method.stringValue);
+            if (m != null)
+            {
+                for (int e = 0; e < m.GetParameters().Length; e++)
+                {
+                    ParameterInfo parametter = m.GetParameters()[e];
+
+                    ite = childObj.GetIterator();
+                    while (ite.Next(true))
+                    {
+
+                        if (ite.name == parametter.Name)
+                        {
+                            totalHeight += EditorGUI.GetPropertyHeight(ite, label, true) + EditorGUIUtility.standardVerticalSpacing;
+                            break;
+                        }
+
+                    }
+                }
+            }
+
 
             return totalHeight;
         }

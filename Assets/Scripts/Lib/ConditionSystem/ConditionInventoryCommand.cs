@@ -9,9 +9,17 @@ public class ConditionInventoryCommand : ConditionCommand
     [SerializeField]
     string pilou;
 
-    public bool test()
+    [HideInInspector]
+    [SerializeField]
+    bool toto;
+
+    [HideInInspector]
+    [SerializeField]
+    string rt;
+
+    public bool test(bool toto, string rt)
     {
-        return true;
+        return toto;
     }
     public bool test2()
     {
