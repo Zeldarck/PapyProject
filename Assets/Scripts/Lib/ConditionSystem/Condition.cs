@@ -6,39 +6,46 @@ using System.Linq;
 using System;
 
 
-
 [Serializable]
-public class ConditionSet
+public class Condition
 {
     [SerializeField]
-    List<ConditionCollection> m_conditions;
+    bool m_isList;
 
+    [SerializeField]
+    bool m_isOr;
 
-    public bool Execute()
-    {
-        bool res = false;
-        foreach (ConditionCollection conditionCollec in m_conditions)
-        {
-            res = conditionCollec.Execute();
-            if (res)
-            {
-                break;
-            }
-        }
-
-        return res;
-    }
-}
-
-
-[Serializable]
-public class ConditionCollection
-{
     [SerializeField]
     List<Condition> m_conditions;
 
+    [SerializeField]
+    ConditionCommand m_conditionCommand;
 
     public bool Execute()
+    {
+        if (m_isList)
+        {
+            if (m_isOr)
+            {
+                return OrExecute();
+            }
+            else
+            {
+                return AndExecute();
+            }
+        }
+        else
+        {
+            if (m_conditionCommand != null)
+            {
+                return m_conditionCommand.Execute();
+            }
+        }
+
+        return true;
+    }
+
+    private bool AndExecute()
     {
         bool res = true;
         foreach (Condition condition in m_conditions)
@@ -52,24 +59,22 @@ public class ConditionCollection
 
         return res;
     }
-}
 
-
-[Serializable]
-public class Condition
-{
-    [SerializeField]
-    ConditionCommand m_conditionCommand;
-
-    public bool Execute()
+    private bool OrExecute()
     {
-        if(m_conditionCommand != null)
+        bool res = false;
+        foreach (Condition condition in m_conditions)
         {
-            return m_conditionCommand.Execute();
+            res = condition.Execute();
+            if (res)
+            {
+                break;
+            }
         }
 
-        return true;
+        return res;
     }
+
 
 }
 
