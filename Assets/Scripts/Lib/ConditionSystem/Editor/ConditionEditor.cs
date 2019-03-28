@@ -18,7 +18,32 @@ public class ConditionEditor : PropertyDrawer
     {
 
 
+        Color color = GUI.color;
+        Color faded = new Color(0,0,0);
+        faded.a = 0.18f;
+
+        GUI.color = faded;
+
+        GUI.Box(position, "");
+
+        Rect topline = new Rect(position.x, position.y, position.width, 2);
+        GUI.color = new Color(0,0,0);
+
+    //   GUI.Box(topline, "");
+//
+        Rect bottomline = new Rect(position.x, position.y + position.height, position.width, 2);
+
+
+        GUI.Box(bottomline, "");
+
+
+        GUI.color = color;
+
+
         label = EditorGUI.BeginProperty(position, label, property);
+        int indent = EditorGUI.indentLevel;
+
+        EditorGUI.indentLevel++;
 
 
         SerializedProperty isList = property.FindPropertyRelative("m_isList");
@@ -26,6 +51,8 @@ public class ConditionEditor : PropertyDrawer
 
         prevHeight = EditorGUI.GetPropertyHeight(isList, label, true);
         Rect newRect = new Rect(position.x, position.y + EditorGUIUtility.standardVerticalSpacing, position.width, EditorGUI.GetPropertyHeight(isList, label, true));
+        //Rect position = new Rect(position.x, position.y, position.width, position.height);
+
 
         EditorGUI.PropertyField(newRect, isList);
 
@@ -33,11 +60,9 @@ public class ConditionEditor : PropertyDrawer
 
 
         newRect = new Rect(position.x, position.y + prevHeight + EditorGUIUtility.standardVerticalSpacing, position.width, EditorGUI.GetPropertyHeight(isNot, label, true));
-
-        prevHeight += EditorGUI.GetPropertyHeight(isNot, label, true) + EditorGUIUtility.standardVerticalSpacing;
-
         EditorGUI.PropertyField(newRect, isNot);
 
+        prevHeight += EditorGUI.GetPropertyHeight(isNot, label, true) + EditorGUIUtility.standardVerticalSpacing;
 
         if (isList.boolValue)
         {
@@ -59,8 +84,12 @@ public class ConditionEditor : PropertyDrawer
         {
             DisplayCondition(position, property, label);
         }
+        EditorGUI.indentLevel = indent;
 
         EditorGUI.EndProperty();
+
+
+
 
     }
 
@@ -77,10 +106,6 @@ public class ConditionEditor : PropertyDrawer
         }
 
 
-
-
-        int indent = EditorGUI.indentLevel;
-        EditorGUI.indentLevel = 0;
 
 
         SerializedProperty Command = property.FindPropertyRelative("m_conditionCommand");
@@ -125,7 +150,7 @@ public class ConditionEditor : PropertyDrawer
 
         if (finalValue != null)
         {
-            EditorGUI.indentLevel = 1;
+            EditorGUI.indentLevel += 2;
 
             SerializedObject childObj = new UnityEditor.SerializedObject(finalValue);
 
@@ -197,6 +222,8 @@ public class ConditionEditor : PropertyDrawer
             if (currIndex2 >= 0)
             {
 
+                EditorGUI.indentLevel+=2;
+
                 MethodInfo method = methodInfos[currIndex2];
 
 
@@ -232,7 +259,6 @@ public class ConditionEditor : PropertyDrawer
         }
 
 
-        EditorGUI.indentLevel = indent;
 
 
     }
@@ -296,7 +322,7 @@ public class ConditionEditor : PropertyDrawer
             totalHeight += EditorGUI.GetPropertyHeight(property.FindPropertyRelative("m_conditions"), label, true) + EditorGUIUtility.standardVerticalSpacing;
         }
 
-
+        totalHeight += EditorGUIUtility.standardVerticalSpacing * 3;
         return totalHeight;
     }
 
