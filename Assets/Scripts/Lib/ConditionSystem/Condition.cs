@@ -16,6 +16,9 @@ public class Condition
     bool m_isOr;
 
     [SerializeField]
+    bool m_isNot;
+
+    [SerializeField]
     List<Condition> m_conditions;
 
     [SerializeField]
@@ -23,26 +26,27 @@ public class Condition
 
     public bool Execute()
     {
+        bool res = true;
         if (m_isList)
         {
             if (m_isOr)
             {
-                return OrExecute();
+                res = OrExecute();
             }
             else
             {
-                return AndExecute();
+                res = AndExecute();
             }
         }
         else
         {
             if (m_conditionCommand != null)
             {
-                return m_conditionCommand.Execute();
+                res = m_conditionCommand.Execute();
             }
         }
 
-        return true;
+        return m_isNot ? !res : res ;
     }
 
     private bool AndExecute()

@@ -29,6 +29,14 @@ public class ConditionEditor : PropertyDrawer
 
         EditorGUI.PropertyField(newRect, isList);
 
+        SerializedProperty isNot = property.FindPropertyRelative("m_isNot");
+
+
+        newRect = new Rect(position.x, position.y + prevHeight + EditorGUIUtility.standardVerticalSpacing, position.width, EditorGUI.GetPropertyHeight(isNot, label, true));
+
+        prevHeight += EditorGUI.GetPropertyHeight(isNot, label, true) + EditorGUIUtility.standardVerticalSpacing;
+
+        EditorGUI.PropertyField(newRect, isNot);
 
 
         if (isList.boolValue)
@@ -129,7 +137,7 @@ public class ConditionEditor : PropertyDrawer
 
                 Rect newRect = new Rect(position.x, position.y + prevHeight + EditorGUIUtility.standardVerticalSpacing, position.width, EditorGUI.GetPropertyHeight(ite, label, true));
                 prevHeight += newRect.height + EditorGUIUtility.standardVerticalSpacing;
-                EditorGUI.PropertyField(newRect, ite);
+                EditorGUI.PropertyField(newRect, ite, true);
                 ++i;
             }
 
@@ -210,7 +218,7 @@ public class ConditionEditor : PropertyDrawer
 
                     Rect newRect = new Rect(position.x, position.y + prevHeight + EditorGUIUtility.standardVerticalSpacing, position.width, EditorGUI.GetPropertyHeight(ite3, label, true));
                     prevHeight += newRect.height + EditorGUIUtility.standardVerticalSpacing;
-                    EditorGUI.PropertyField(newRect, ite3);
+                    EditorGUI.PropertyField(newRect, ite3, true);
 
                 }
 
@@ -236,9 +244,11 @@ public class ConditionEditor : PropertyDrawer
     public override float GetPropertyHeight(SerializedProperty property, GUIContent label)
     {
         float totalHeight = 0;
+        totalHeight += EditorGUI.GetPropertyHeight(property.FindPropertyRelative("m_isList"), label, true) + EditorGUIUtility.standardVerticalSpacing;
+        totalHeight += EditorGUI.GetPropertyHeight(property.FindPropertyRelative("m_isNot"), label, true) + EditorGUIUtility.standardVerticalSpacing;
+
         if (!property.FindPropertyRelative("m_isList").boolValue)
         {
-            totalHeight += EditorGUI.GetPropertyHeight(property.FindPropertyRelative("m_conditionCommand"), label, true);
             totalHeight += EditorGUI.GetPropertyHeight(property.FindPropertyRelative("m_isList"), label, true);
             UnityEngine.Object command = property.FindPropertyRelative("m_conditionCommand").objectReferenceValue;
             if (command != null)
@@ -282,7 +292,6 @@ public class ConditionEditor : PropertyDrawer
         }
         else
         {
-            totalHeight += EditorGUI.GetPropertyHeight(property.FindPropertyRelative("m_isList"), label, true) + EditorGUIUtility.standardVerticalSpacing;
             totalHeight += EditorGUI.GetPropertyHeight(property.FindPropertyRelative("m_isOr"), label, true) + EditorGUIUtility.standardVerticalSpacing;
             totalHeight += EditorGUI.GetPropertyHeight(property.FindPropertyRelative("m_conditions"), label, true) + EditorGUIUtility.standardVerticalSpacing;
         }
