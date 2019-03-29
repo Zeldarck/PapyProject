@@ -13,14 +13,12 @@ public class ConditionCommand : ScriptableObject
 
     [HideInInspector]
     [SerializeField]
-    string method;
+    string m_method;
 
-
-    public string Method { get => method; set => method = value; }
 
     public bool Execute()
     {
-        MethodInfo info  = GetType().GetMethod(method);
+        MethodInfo info  = GetType().GetMethod(m_method);
 
         if (info != null)
         {
@@ -28,14 +26,14 @@ public class ConditionCommand : ScriptableObject
 
             object[] param = new object[info.GetParameters().Length];
 
-            for (int e = 0; e < info.GetParameters().Length; e++)
+            for (int i = 0; i < info.GetParameters().Length; i++)
             {
-                ParameterInfo parametter = info.GetParameters()[e];
-                for (int i = 0; i < GetType().GetFields(BindingFlags.NonPublic | BindingFlags.Instance).Length; ++i)
+                ParameterInfo parametter = info.GetParameters()[i];
+                for (int j = 0; j < GetType().GetFields(BindingFlags.NonPublic | BindingFlags.Instance).Length; ++j)
                 {
-                    if (GetType().GetFields(BindingFlags.NonPublic | BindingFlags.Instance)[i].Name == parametter.Name)
+                    if (GetType().GetFields(BindingFlags.NonPublic | BindingFlags.Instance)[j].Name == parametter.Name)
                     {
-                        param[e] = GetType().GetFields(BindingFlags.NonPublic | BindingFlags.Instance)[i].GetValue(this);
+                        param[i] = GetType().GetFields(BindingFlags.NonPublic | BindingFlags.Instance)[j].GetValue(this);
                     }
                 }
             }
