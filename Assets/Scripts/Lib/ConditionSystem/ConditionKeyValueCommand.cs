@@ -6,14 +6,11 @@ public class ConditionKeyValueCommand : ConditionCommand
 {
     [HideInInspector]
     [SerializeField]
-    bool wesh;
+    bool example;
 
-    [HideInInspector]
-    [SerializeField]
-    Condition wesh2;
 
-    public bool test2(bool wesh, Condition wesh2)
+    public bool Example(bool example)
     {
-        return true;
+        return example;
     }
 }
