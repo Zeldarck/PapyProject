@@ -8,9 +8,6 @@ using System.Reflection;
 public class ConditionCommand : ScriptableObject
 {
 
-    [SerializeField]
-    string test;
-
     [HideInInspector]
     [SerializeField]
     string m_method;

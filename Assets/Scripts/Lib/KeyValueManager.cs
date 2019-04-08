@@ -17,7 +17,7 @@ public class KeyValueManager : Singleton<KeyValueManager>
 
 }
 
-    public class KeyValueData
+public class KeyValueData
 {
 
     Dictionary<string, bool> m_bools = new Dictionary<string, bool>();

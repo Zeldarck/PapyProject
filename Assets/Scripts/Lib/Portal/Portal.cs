@@ -13,10 +13,15 @@ public class Portal : MonoBehaviour
     [SerializeField]
     TriggerObservable m_middleTrigger;
 
-
     string m_scene1;
     [SerializeField]
     string m_scene2;
+
+    [SerializeField]
+    Condition m_condition;
+
+
+ 
 
 
     bool m_isUsable = false;
@@ -42,7 +47,7 @@ public class Portal : MonoBehaviour
 
         m_scene1Trigger.Register(null, OnStaySide, null);
         m_scene2Trigger.Register(null, OnStaySide, null);
-        m_middleTrigger.Register(OnEnterMiddle, null, OnExitMiddle);
+        m_middleTrigger.Register(OnEnterMiddle, OnStayMiddle, OnExitMiddle);
     }
 
 
@@ -76,7 +81,7 @@ public class Portal : MonoBehaviour
         if (IsUsable && a_other.CompareTag("Player"))
         {
             m_insideMiddle = true;
-            if (!m_scene2Loaded && !m_scene2Loading)
+            if (!m_scene2Loaded && !m_scene2Loading && m_condition.Execute())
             {
                 SceneManager.LoadSceneAsync(m_scene2, LoadSceneMode.Additive);
                 Reposition();
@@ -84,6 +89,17 @@ public class Portal : MonoBehaviour
             }
         }
     }
+
+    private void OnStayMiddle(TriggerObservable a_trigger, Collider a_other)
+    {
+        if (!m_scene2Loading && !m_scene2Loaded &&  IsUsable && a_other.CompareTag("Player") && m_condition.Execute())
+        {
+            SceneManager.LoadSceneAsync(m_scene2, LoadSceneMode.Additive);
+            Reposition();
+            m_scene2Loading = true;
+        }
+    }
+
 
     private void OnExitMiddle(TriggerObservable a_trigger, Collider a_other)
     {

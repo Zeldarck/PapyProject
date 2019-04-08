@@ -6,11 +6,12 @@ public class ConditionKeyValueCommand : ConditionCommand
 {
     [HideInInspector]
     [SerializeField]
-    bool example;
+    string a_keyValue;
 
 
-    public bool Example(bool example)
+    public bool BoolKeyValueIsTrue(string a_keyValue)
     {
-        return example;
+        return KeyValueManager.Instance.KeyValueData.GetValueBool(a_keyValue);
     }
+
 }

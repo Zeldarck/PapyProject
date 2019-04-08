@@ -24,9 +24,15 @@ public class InteractableDoor : Interactable
         {
             m_isLock = false;
         }
+
         if (KeyValueManager.Instance.KeyValueData.GetValueBool(m_keyValue + "IsOpen"))
         {
             Open();
+        }
+
+        if (m_isLock)
+        {
+            m_isOpen = false;
         }
     }
 
@@ -42,7 +48,7 @@ public class InteractableDoor : Interactable
         if (m_isLock)
         {
             a_player.Inventory.UseItem(m_key);
-            a_player.KeyValueData.SetValueBool(m_keyValue + "Unlock", true);
+            KeyValueManager.Instance.KeyValueData.SetValueBool(m_keyValue + "Unlock", true);
 
             m_isLock = false;
             DebugPrint("Unlock");

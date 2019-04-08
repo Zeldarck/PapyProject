@@ -255,10 +255,16 @@ MonoBehaviour:
   m_debugName: Door
   m_coneAngle: 180
   m_priotity: 0
+  m_condition:
+    m_isList: 0
+    m_isOr: 0
+    m_isNot: 0
+    m_conditions: []
+    m_conditionCommand: {fileID: 0}
   m_isOpen: 0
   m_isLock: 1
   m_key: {fileID: 11400000, guid: 3b4977f978fb85e4180cc92c8b0bece7, type: 2}
-  m_keyValue: 
+  m_keyValue: EntranceDoor
 --- !u!135 &165345035
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -284,16 +290,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e07e1a4da2c28154a8f558f50d999029, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  test:
-    m_conditions:
-    - m_conditions:
-      - m_conditionCommand: {fileID: 612261050}
-      - m_conditionCommand: {fileID: 1470564195}
-      - m_conditionCommand: {fileID: 1931329852}
-    - m_conditions: []
-    - m_conditions: []
-    - m_conditions: []
-    - m_conditions: []
 --- !u!65 &165345037
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -486,7 +482,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &612261050
+--- !u!114 &840008578
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -495,14 +491,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: db9b922056cb5a7468fcdfe8f8c8e65e, type: 3}
+  m_Script: {fileID: 11500000, guid: 80b778d525d204041bc1ad63103abb9f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  test: 
-  method: test
-  pilou: 
-  toto: 1
-  rt: 
+  m_method: BoolKeyValueIsTrue
+  a_keyValue: EntranceDoorIsOpen
 --- !u!4 &1058227541 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2035791059632891624, guid: ab1c639fc1dee7c4caa703a32558785d,
@@ -883,6 +876,12 @@ MonoBehaviour:
   m_debugName: Key Main Door
   m_coneAngle: 180
   m_priotity: 1
+  m_condition:
+    m_isList: 0
+    m_isOr: 0
+    m_isNot: 0
+    m_conditions: []
+    m_conditionCommand: {fileID: 0}
   m_item: {fileID: 11400000, guid: 3b4977f978fb85e4180cc92c8b0bece7, type: 2}
 --- !u!114 &1332523176
 MonoBehaviour:
@@ -896,8 +895,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e07e1a4da2c28154a8f558f50d999029, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  test:
-    m_conditions: []
 --- !u!65 &1332523177
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1034,23 +1031,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1470564195
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 80b778d525d204041bc1ad63103abb9f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  test: 
-  method: 
-  wesh: 0
-  wesh2:
-    m_conditionCommand: {fileID: 0}
 --- !u!1 &1757438298
 GameObject:
   m_ObjectHideFlags: 0
@@ -1081,23 +1061,6 @@ Transform:
   m_Father: {fileID: 1160183043}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1931329852
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 80b778d525d204041bc1ad63103abb9f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  test: 
-  method: 
-  wesh: 0
-  wesh2:
-    m_conditionCommand: {fileID: 0}
 --- !u!1 &1959974920
 GameObject:
   m_ObjectHideFlags: 0
@@ -1396,6 +1359,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_scene2
       value: Room
+      objectReference: {fileID: 0}
+    - target: {fileID: 2035791059632891627, guid: ab1c639fc1dee7c4caa703a32558785d,
+        type: 3}
+      propertyPath: m_condition.m_conditionCommand
+      value: 
+      objectReference: {fileID: 840008578}
+    - target: {fileID: 2035791059632891627, guid: ab1c639fc1dee7c4caa703a32558785d,
+        type: 3}
+      propertyPath: m_condition.m_isNot
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ab1c639fc1dee7c4caa703a32558785d, type: 3}

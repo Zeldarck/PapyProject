@@ -20,6 +20,8 @@ public abstract class Interactable : MonoBehaviour
     [SerializeField, Tooltip("higher is better")]
     int m_priotity = 0;
 
+    [SerializeField]
+    Condition m_condition;
 
 
     public int Priotity { get => m_priotity; set => m_priotity = value; }
@@ -48,7 +50,7 @@ public abstract class Interactable : MonoBehaviour
         Vector3 vecToMe = gameObject.transform.position - a_player.transform.position;
         float angle = Vector2.Angle(new Vector2(a_player.transform.forward.x, a_player.transform.forward.z), new Vector2(vecToMe.x, vecToMe.z));
 
-        return angle <= m_coneAngle;
+        return angle <= m_coneAngle && m_condition.Execute();
     }
 
     public virtual bool Interact(PlayerController a_player)
