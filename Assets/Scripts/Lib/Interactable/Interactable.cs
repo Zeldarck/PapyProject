@@ -3,11 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(InteractableManager))]
+[RequireComponent(typeof(ObjectIdentityHandler))]
 public abstract class Interactable : MonoBehaviour
 {
     [Header("Debug")]
     [SerializeField]
-    protected string m_debugName = "debugName";
+    protected string m_debugName = "";
 
 
     [Space(20)]
@@ -22,6 +23,9 @@ public abstract class Interactable : MonoBehaviour
 
     [SerializeField]
     Condition m_condition;
+
+    protected ObjectIdentityHandler m_identity;
+
 
 
     public int Priotity { get => m_priotity; set => m_priotity = value; }
@@ -61,7 +65,13 @@ public abstract class Interactable : MonoBehaviour
 
     protected virtual void Start()
     {
-        
+        m_identity = GetComponent<ObjectIdentityHandler>();
+#if UNITY_EDITOR
+        if (m_debugName == "")
+        {
+            m_debugName = m_identity.GetName();
+        }
+#endif
     }
 
     protected virtual void Update()

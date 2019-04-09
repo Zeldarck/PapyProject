@@ -13,27 +13,28 @@ public class InteractableDoor : Interactable
     [SerializeField]
     Item m_key;
 
-    [SerializeField]
-    string m_keyValue;
 
 
     protected override void Start()
     {
         base.Start();
-        if (KeyValueManager.Instance.KeyValueData.GetValueBool(m_keyValue + "Unlock"))
+        if (!m_identity.ObjectIdentity.IsLock())
         {
             m_isLock = false;
-        }
-
-        if (KeyValueManager.Instance.KeyValueData.GetValueBool(m_keyValue + "IsOpen"))
-        {
-            Open();
         }
 
         if (m_isLock)
         {
             m_isOpen = false;
         }
+
+        if (m_identity.ObjectIdentity.IsOpen())
+        {
+            Open();
+        }
+
+        m_identity.ObjectIdentity.Open(m_isOpen);
+        m_identity.ObjectIdentity.Lock(m_isLock);
     }
 
     public override bool IsInteractable(PlayerController a_player)
@@ -48,7 +49,7 @@ public class InteractableDoor : Interactable
         if (m_isLock)
         {
             a_player.Inventory.UseItem(m_key);
-            KeyValueManager.Instance.KeyValueData.SetValueBool(m_keyValue + "Unlock", true);
+            m_identity.ObjectIdentity.Lock(false);
 
             m_isLock = false;
             DebugPrint("Unlock");
@@ -72,8 +73,8 @@ public class InteractableDoor : Interactable
     {
         DebugPrint("Open");
         transform.position = new Vector3(transform.position.x + 5, transform.position.y, transform.position.z);
-        KeyValueManager.Instance.KeyValueData.SetValueBool(m_keyValue + "IsOpen", true);
-    
+        m_identity.ObjectIdentity.Open(true);
+
         m_isOpen = true;
     }
 
@@ -81,7 +82,7 @@ public class InteractableDoor : Interactable
     {
         DebugPrint("Close");
         transform.position = new Vector3(transform.position.x - 5, transform.position.y, transform.position.z);
-        KeyValueManager.Instance.KeyValueData.SetValueBool(m_keyValue + "IsOpen", false);
+        m_identity.ObjectIdentity.Open(false);
 
         m_isOpen = false;
     }

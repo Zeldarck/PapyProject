@@ -112,6 +112,20 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 23800000, guid: a2977268c445da240bc2f3d2604bed1e, type: 2}
+--- !u!114 &12310280
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 72d207c0f5ad1214fbb85446dc3eed2b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_method: IsDoorOpen
+  a_objectIdentity: {fileID: 11400000, guid: ded762ca193abed42b37bde61bae7739, type: 2}
 --- !u!4 &35545246 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7313706441830054819, guid: 55c06b42c79746f4f94b2f8caf4adb83,
@@ -664,8 +678,9 @@ GameObject:
   - component: {fileID: 1517710965}
   - component: {fileID: 1517710964}
   - component: {fileID: 1517710963}
-  - component: {fileID: 1517710962}
   - component: {fileID: 1517710961}
+  - component: {fileID: 1517710962}
+  - component: {fileID: 1517710967}
   - component: {fileID: 1517710960}
   m_Layer: 9
   m_Name: Door
@@ -698,7 +713,6 @@ MonoBehaviour:
   m_isOpen: 0
   m_isLock: 1
   m_key: {fileID: 11400000, guid: 3b4977f978fb85e4180cc92c8b0bece7, type: 2}
-  m_keyValue: EntranceDoor
 --- !u!135 &1517710961
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -796,6 +810,19 @@ Transform:
   m_Father: {fileID: 1160183043}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1517710967
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1517710959}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d71031d79482c714f94fe66b27eef56d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_objectIdentity: {fileID: 11400000, guid: ded762ca193abed42b37bde61bae7739, type: 2}
 --- !u!1 &1757438298
 GameObject:
   m_ObjectHideFlags: 0
@@ -996,20 +1023,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1959974920}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
---- !u!114 &2006812701
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 80b778d525d204041bc1ad63103abb9f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_method: BoolKeyValueIsTrue
-  a_keyValue: EntranceDoorIsOpen
 --- !u!1 &2125464584
 GameObject:
   m_ObjectHideFlags: 0
@@ -1232,7 +1245,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_condition.m_conditionCommand
       value: 
-      objectReference: {fileID: 2006812701}
+      objectReference: {fileID: 12310280}
     - target: {fileID: 2035791059632891627, guid: ab1c639fc1dee7c4caa703a32558785d,
         type: 3}
       propertyPath: m_condition.m_isNot
