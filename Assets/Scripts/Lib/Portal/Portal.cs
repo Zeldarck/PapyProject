@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -18,6 +19,10 @@ public class Portal : MonoBehaviour
     string m_scene2;
 
     [SerializeField]
+    List<GameObject> m_linkedObjects;
+
+
+    [SerializeField]
     Condition m_condition;
 
 
@@ -34,8 +39,7 @@ public class Portal : MonoBehaviour
 
     public string Scene1 { get => m_scene1; set => m_scene1 = value; }
     public string Scene2 { get => m_scene2; set => m_scene2 = value; }
-    public bool IsUsable { get => m_isUsable; set => m_isUsable = value; }
-
+    public bool IsUsable { get => m_isUsable; set { m_isUsable = value; Actualize(); } }
 
     private void Start()
     {
@@ -127,7 +131,7 @@ public class Portal : MonoBehaviour
         else
         {
             scene = SceneManager.GetSceneByName(Scene1);
-            m_isUsable = false;
+            IsUsable = false;
         }
         SceneManager.UnloadSceneAsync(scene);
         m_scene2Loaded = false;
@@ -182,6 +186,15 @@ public class Portal : MonoBehaviour
         }
 
     }
+
+    private void Actualize()
+    {
+        foreach(GameObject go in m_linkedObjects)
+        {
+            go.SetActive(IsUsable);
+        }
+    }
+
 
 
     private void OnDestroy()
