@@ -276,6 +276,9 @@ MonoBehaviour:
     m_isNot: 0
     m_conditions: []
     m_conditionCommand: {fileID: 0}
+  m_InteractableUIPrefab: {fileID: 194183293974350701, guid: 36eb8bbcf45c3294d9f63f4b328a4e87,
+    type: 3}
+  m_UIOffset: {x: 0, y: 5, z: 0}
   m_isOpen: 0
   m_isLock: 1
   m_key: {fileID: 11400000, guid: 3b4977f978fb85e4180cc92c8b0bece7, type: 2}
@@ -896,6 +899,9 @@ MonoBehaviour:
     m_isNot: 0
     m_conditions: []
     m_conditionCommand: {fileID: 0}
+  m_InteractableUIPrefab: {fileID: 194183293974350701, guid: 36eb8bbcf45c3294d9f63f4b328a4e87,
+    type: 3}
+  m_UIOffset: {x: 0, y: 3, z: 0}
   m_item: {fileID: 11400000, guid: 3b4977f978fb85e4180cc92c8b0bece7, type: 2}
 --- !u!114 &1332523175
 MonoBehaviour:

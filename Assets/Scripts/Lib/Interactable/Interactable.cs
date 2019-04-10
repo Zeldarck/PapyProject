@@ -24,6 +24,16 @@ public abstract class Interactable : MonoBehaviour
     [SerializeField]
     Condition m_condition;
 
+    [SerializeField]
+    protected InteractableUI m_InteractableUIPrefab;
+
+    [SerializeField]
+    Vector3 m_UIOffset = new Vector3(0, 3, 0);
+
+
+    protected InteractableUI m_InteractableUI;
+
+
     protected ObjectIdentityHandler m_identity;
 
 
@@ -31,19 +41,21 @@ public abstract class Interactable : MonoBehaviour
     public int Priotity { get => m_priotity; set => m_priotity = value; }
 
 
-    public void OnEnter(PlayerController a_player)
+    public virtual void OnEnter(PlayerController a_player)
     {
         m_playerInside = true;
+        m_InteractableUI.Display(true);
         DebugPrint("PLayer Enter");
     }
 
-    public void OnExit(PlayerController a_player)
+    public virtual void OnExit(PlayerController a_player)
     {
         m_playerInside = false;
+        m_InteractableUI.Display(false);
         DebugPrint("PLayer Exit");
     }
 
-    public void OnStay(PlayerController a_player)
+    public virtual void OnStay(PlayerController a_player)
     {
         //Debug.Log("PLayer Stay");
     }
@@ -66,6 +78,12 @@ public abstract class Interactable : MonoBehaviour
     protected virtual void Start()
     {
         m_identity = GetComponent<ObjectIdentityHandler>();
+
+        GameObject interactableUI = Instantiate(m_InteractableUIPrefab.gameObject, transform.position + m_UIOffset, Quaternion.identity);
+        interactableUI.transform.SetParent(transform);
+        m_InteractableUI = interactableUI.GetComponent<InteractableUI>();
+        m_InteractableUI.Display(false);
+
 #if UNITY_EDITOR
         if (m_debugName == "")
         {

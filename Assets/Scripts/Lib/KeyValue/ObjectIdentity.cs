@@ -15,6 +15,12 @@ public class ObjectIdentity : ScriptableObject
         return KeyValueManager.Instance.KeyValueData.GetValueBool(name + "Lock");
     }
 
+    public bool HasLockInfos()
+    {
+        return KeyValueManager.Instance.KeyValueData.HasValueBool(name + "Lock");
+    }
+
+
     public void Open(bool a_value)
     {
         KeyValueManager.Instance.KeyValueData.SetValueBool(name + "IsOpen", a_value);
@@ -23,6 +29,11 @@ public class ObjectIdentity : ScriptableObject
     public bool IsOpen()
     {
         return KeyValueManager.Instance.KeyValueData.GetValueBool(name + "IsOpen");
+    }
+
+    public bool HasOpenInfos()
+    {
+        return KeyValueManager.Instance.KeyValueData.HasValueBool(name + "IsOpen");
     }
 
 }

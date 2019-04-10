@@ -64,6 +64,28 @@ public class KeyValueData
     }
 
 
+    public bool HasValueBool(string a_key)
+    {
+        return m_bools.ContainsKey(a_key);
+    }
+
+    public bool HasValueInt(string a_key)
+    {
+        return m_ints.ContainsKey(a_key);
+    }
+
+    public bool HasValueFloat(string a_key)
+    {
+        return m_floats.ContainsKey(a_key);
+    }
+
+    public bool HasValueString(string a_key)
+    {
+        return m_strings.ContainsKey(a_key);
+    }
+
+
+
     public void SetValueBool(string a_key, bool a_value)
     {
         m_bools[a_key] = a_value;

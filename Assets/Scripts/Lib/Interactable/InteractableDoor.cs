@@ -18,7 +18,7 @@ public class InteractableDoor : Interactable
     protected override void Start()
     {
         base.Start();
-        if (!m_identity.ObjectIdentity.IsLock())
+        if (m_identity.ObjectIdentity.HasLockInfos() && !m_identity.ObjectIdentity.IsLock())
         {
             m_isLock = false;
         }
@@ -26,9 +26,10 @@ public class InteractableDoor : Interactable
         if (m_isLock)
         {
             m_isOpen = false;
+            m_InteractableUI.SetText("E Unlock");
         }
 
-        if (m_identity.ObjectIdentity.IsOpen())
+        if (m_identity.ObjectIdentity.HasOpenInfos() && m_identity.ObjectIdentity.IsOpen())
         {
             Open();
         }
@@ -74,6 +75,7 @@ public class InteractableDoor : Interactable
         DebugPrint("Open");
         transform.position = new Vector3(transform.position.x + 5, transform.position.y, transform.position.z);
         m_identity.ObjectIdentity.Open(true);
+        m_InteractableUI.SetText("E Close");
 
         m_isOpen = true;
     }
@@ -83,6 +85,7 @@ public class InteractableDoor : Interactable
         DebugPrint("Close");
         transform.position = new Vector3(transform.position.x - 5, transform.position.y, transform.position.z);
         m_identity.ObjectIdentity.Open(false);
+        m_InteractableUI.SetText("E Open");
 
         m_isOpen = false;
     }

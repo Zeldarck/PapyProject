@@ -7,6 +7,7 @@ using System;
 public class InteractableManager : MonoBehaviour
 {
 
+
     List<Interactable> m_interactables;
 
     int m_activeInteractable = -1;

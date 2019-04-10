@@ -710,6 +710,9 @@ MonoBehaviour:
     m_isNot: 0
     m_conditions: []
     m_conditionCommand: {fileID: 0}
+  m_InteractableUIPrefab: {fileID: 194183293974350701, guid: 36eb8bbcf45c3294d9f63f4b328a4e87,
+    type: 3}
+  m_UIOffset: {x: 0, y: 5, z: 0}
   m_isOpen: 0
   m_isLock: 1
   m_key: {fileID: 11400000, guid: 3b4977f978fb85e4180cc92c8b0bece7, type: 2}
@@ -930,6 +933,12 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 7313706441830054809, guid: 55c06b42c79746f4f94b2f8caf4adb83,
+        type: 3}
+      propertyPath: m_InteractableUIPrefab
+      value: 
+      objectReference: {fileID: 194183293974350701, guid: 36eb8bbcf45c3294d9f63f4b328a4e87,
+        type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 55c06b42c79746f4f94b2f8caf4adb83, type: 3}
 --- !u!1 &1959974920
