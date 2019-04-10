@@ -9,12 +9,12 @@ public class ConditionObjectIdentityCommand : ConditionCommand
     ObjectIdentity a_objectIdentity;
 
 
-    public bool IsDoorOpen(ObjectIdentity a_objectIdentity)
+    public bool IsOpen(ObjectIdentity a_objectIdentity)
     {
         return a_objectIdentity.IsOpen();
     }
 
-    public bool IsDoorLocked(ObjectIdentity a_objectIdentity)
+    public bool IsLocked(ObjectIdentity a_objectIdentity)
     {
         return a_objectIdentity.IsLock();
     }

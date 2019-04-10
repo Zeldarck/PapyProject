@@ -5,7 +5,6 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "New ObjectIdentity", menuName = "Object Identity", order = 52)]
 public class ObjectIdentity : ScriptableObject
 {
-    //To put in a child class
     public void Lock(bool a_value)
     {
         KeyValueManager.Instance.KeyValueData.SetValueBool(name + "Lock", a_value);

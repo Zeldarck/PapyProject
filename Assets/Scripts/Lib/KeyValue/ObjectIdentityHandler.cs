@@ -6,7 +6,6 @@ using UnityEngine;
 public class ObjectIdentityHandler : MonoBehaviour
 {
 
-    //will have a list of identity operator class to handle functionnality of one kind of class?
     [SerializeField]
     ObjectIdentity m_objectIdentity;
 

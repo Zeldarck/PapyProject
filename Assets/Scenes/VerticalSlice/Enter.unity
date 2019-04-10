@@ -124,7 +124,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 72d207c0f5ad1214fbb85446dc3eed2b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_method: IsDoorOpen
+  m_method: IsOpen
   a_objectIdentity: {fileID: 11400000, guid: ded762ca193abed42b37bde61bae7739, type: 2}
 --- !u!1 &135804020
 GameObject:
