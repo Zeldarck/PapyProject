@@ -7,8 +7,22 @@ public class InteractableItem : Interactable
     [SerializeField]
     Item m_item;
 
+    [SerializeField]
+    bool m_multiple;
+
 
     bool m_isUsed;
+
+
+    protected override void Start()
+    {
+        base.Start();
+        if (m_identity.ObjectIdentity.HasTakenInfos() && m_identity.ObjectIdentity.IsTaken())
+        {
+            Taken();
+        }
+    }
+
 
     public override bool IsInteractable(PlayerController a_player)
     {
@@ -22,12 +36,20 @@ public class InteractableItem : Interactable
 
         a_player.Inventory.AddItem(m_item);
 
-        m_isUsed = true;
+        Taken();
 
         a_player.ResetInteractable();
 
-        Destroy(gameObject);
-
         return res;
+    }
+
+    void Taken()
+    {
+        if (!m_multiple)
+        {
+            m_isUsed = true;
+            m_identity.ObjectIdentity.Taken(true);
+            Destroy(gameObject);
+        }
     }
 }
