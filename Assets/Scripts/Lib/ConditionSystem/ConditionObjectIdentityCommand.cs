@@ -18,6 +18,10 @@ public class ConditionObjectIdentityCommand : ConditionCommand
     {
         return a_objectIdentity.IsLock();
     }
-
+    
+    public bool IsSpokenTo(ObjectIdentity a_objectIdentity)
+    {
+        return a_objectIdentity.IsSpokenTo();
+    }
 
 }

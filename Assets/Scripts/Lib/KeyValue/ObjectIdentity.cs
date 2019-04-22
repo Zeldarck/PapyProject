@@ -50,5 +50,13 @@ public class ObjectIdentity : ScriptableObject
         return KeyValueManager.Instance.KeyValueData.HasValueBool(name + "IsTaken");
     }
 
+    public void SpokeTo(bool a_value)
+    {
+        KeyValueManager.Instance.KeyValueData.SetValueBool(name + "IsSpokenTo", a_value);
+    }
 
+    public bool IsSpokenTo()
+    {
+        return KeyValueManager.Instance.KeyValueData.HasValueBool(name + "IsSpokenTo");
+    }
 }
