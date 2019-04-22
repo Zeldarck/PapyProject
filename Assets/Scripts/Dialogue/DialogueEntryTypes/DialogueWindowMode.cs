@@ -4,10 +4,12 @@ using UnityEngine;
 
 public class DialogueWindowMode : DialogueEntry
 {
-    public int _windowIndex;
+    public int m_windowIndex;
+    public DialogueContainer m_subDialogue;
 
-    public DialogueWindowMode(int windowIndex)
+    public DialogueWindowMode(int a_windowIndex)
     {
-        _windowIndex = windowIndex;
+        m_windowIndex = a_windowIndex;
+        m_subDialogue = new DialogueContainer();
     }
 }

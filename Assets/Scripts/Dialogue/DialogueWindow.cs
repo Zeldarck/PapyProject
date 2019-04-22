@@ -16,8 +16,8 @@ public class DialogueWindow : MonoBehaviour
 
     public void DisplayLine(DialogueLine line)
     {
-        _characterZone.text = line._character;
-        _textZone.text = line._line;
+        _characterZone.text = line.m_character;
+        _textZone.text = line.m_line;
     }
 
     public void ResetWindow()

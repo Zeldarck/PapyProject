@@ -4,12 +4,12 @@ using UnityEngine;
 
 public class DialogueLine : DialogueEntry
 {
-    public string _character;
-    public string _line;
+    public string m_character;
+    public string m_line;
 
-    public DialogueLine(string character, string line)
+    public DialogueLine(string a_character, string a_line)
     {
-        _character = character;
-        _line = line;
+        m_character = a_character;
+        m_line = a_line;
     }
 }
