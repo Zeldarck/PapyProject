@@ -89,6 +89,7 @@ public abstract class Interactable : MonoBehaviour
         {
             m_debugName = m_identity.GetName();
         }
+        m_InteractableUI.name = "Interractable UI " + m_debugName;
 #endif
     }
 

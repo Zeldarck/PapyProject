@@ -46,7 +46,7 @@ public class Singleton<T> : MonoBehaviour where T : MonoBehaviour
 
                     if (FindObjectsOfType(typeof(T)).Length > 1)
                     {
-                        Debug.LogError("[Singleton] Something went really wrong " +
+                        Debug.LogError("[Singleton]["+ typeof(T) + "] Something went really wrong " +
                             " - there should never be more than 1 singleton!" +
                             " Reopening the scene might fix it.");
                         return _instance;
@@ -66,6 +66,7 @@ public class Singleton<T> : MonoBehaviour where T : MonoBehaviour
                     }
                     else
                     {
+                        DontDestroyOnLoad(_instance);
                         Debug.Log("[Singleton] Using instance already created: " +
                             _instance.gameObject.name);
                     }

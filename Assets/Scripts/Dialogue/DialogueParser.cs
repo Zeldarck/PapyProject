@@ -9,56 +9,63 @@ using System;
 public class DialogueParser
 {
 
-    public DialogueContainer parseXMLDialogue(string a_path)
+    public DialogueContainer ParseXMLDialogue(string a_path)
     {
         a_path = "Assets/Resources/Dialogues/" + a_path;
         XmlDocument xmlDialogue = new XmlDocument();
         xmlDialogue.Load(a_path);
-        DialogueContainer dialogue = new DialogueContainer();
+        DialogueContainer dialogue = new DialogueContainer(xmlDialogue.ChildNodes[1]);
+        
 
-        foreach(XmlNode node in xmlDialogue.DocumentElement)
+       /* foreach (XmlNode node in xmlDialogue.DocumentElement)
         {
             GetEntriesInChild(dialogue, node);
-        }
+        }*/
         
         return dialogue;
     }
 
-    private void GetEntriesInChild(DialogueContainer a_dialogue, XmlNode a_node)
+    //Todo put elsewhere
+    public static DialogueEntry GetEntriesInChild(DialogueContainer a_dialogue, XmlNode a_node)
     {
-        string type = a_node.Attributes[0].InnerText;
-
+        string type = a_node.Name;
+        DialogueEntry res = null;
         switch (type)
         {
             case "window":
-                DialogueWindowMode windowMode = CreateDialogueWindowMode(a_node, a_dialogue);
-                a_dialogue.m_entries.Add(windowMode);
+                res = new DialogueWindowMode(a_node);
+              //  a_dialogue.m_entries.Add(windowMode);
                 break;
             case "line":
-                a_dialogue.m_entries.Add(CreateDialogueLine(a_node));
+                res = new DialogueLine(a_node);
+                // a_dialogue.m_entries.Add(CreateDialogueLine(a_node));
                 break;
-            default: break;
+            default:
+                Debug.LogError("[Dialogue] Not a valid format " + type);
+                break;
         }
+
+        return res;
 
     }
 
-    private DialogueEntry CreateDialogueLine(XmlNode a_node)
+   /* private DialogueEntry CreateDialogueLine(XmlNode a_node)
     {
         //Add tests
         string character = a_node.ChildNodes[0].InnerText;
         string line = a_node.ChildNodes[1].InnerText;
         return new DialogueLine(character, line);
-    }
+    }*/
 
-    private DialogueWindowMode CreateDialogueWindowMode(XmlNode a_node, DialogueContainer a_dialogue)
+   /* private DialogueWindowMode CreateDialogueWindowMode(XmlNode a_node, DialogueContainer a_dialogue)
     {
         int index = int.Parse(a_node.Attributes[1].InnerText);
         DialogueWindowMode result = new DialogueWindowMode(index);
         foreach (XmlNode node in a_node.ChildNodes)
         {
-            GetEntriesInChild(result.m_subDialogue, node);
+          //  GetEntriesInChild(result.m_subDialogue, node);
         }
-        result.m_subDialogue.SetNewParent(a_dialogue);
+       // result.m_subDialogue.SetNewParent(a_dialogue);
         return result;
-    }
+    }*/
 }

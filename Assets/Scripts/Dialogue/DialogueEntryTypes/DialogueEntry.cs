@@ -4,5 +4,5 @@ using UnityEngine;
 
 public abstract class DialogueEntry
 {
-
+    public abstract bool Read();
 }

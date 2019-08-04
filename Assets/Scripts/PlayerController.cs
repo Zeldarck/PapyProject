@@ -21,7 +21,7 @@ public class PlayerController : MonoBehaviour
 
     public bool Freeze { get; set; }
 
-    void Start () {
+    void Awake () {
 
         Inventory = new Inventory();
 

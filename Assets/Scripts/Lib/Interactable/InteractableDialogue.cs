@@ -9,19 +9,12 @@ public class InteractableDialogue : Interactable
     private string m_dialoguePath = "";
 
     [SerializeField]
-    [Tooltip("True if the dialogue can be replayed. Else can only be played once.")]
+    [Tooltip("True if the dialogue can be replayed. Else can only be played once. - NOT IMPLEMENTED")]
     private bool m_multiplePass = true;
-
-    private bool m_wasPlayed = false;
 
     protected override void Start()
     {
         base.Start();
-    }
-
-    public override bool IsInteractable(PlayerController a_player)
-    {
-        return base.IsInteractable(a_player);
     }
 
     public override bool Interact(PlayerController a_player)

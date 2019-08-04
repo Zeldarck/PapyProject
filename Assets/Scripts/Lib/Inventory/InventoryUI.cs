@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class InventoryUI : Singleton<InteractableUI>, InventoryObserver
+public class InventoryUI : Singleton<InventoryUI>, InventoryObserver
 {
     [SerializeField]
     PlayerController m_player;

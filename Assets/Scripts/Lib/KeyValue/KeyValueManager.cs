@@ -12,7 +12,6 @@ public class KeyValueManager : Singleton<KeyValueManager>
     {
         base.Awake();
         KeyValueData = new KeyValueData();
-        DontDestroyOnLoad(this);
     }
 
 }

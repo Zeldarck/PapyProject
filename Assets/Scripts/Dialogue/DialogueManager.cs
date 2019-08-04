@@ -18,7 +18,6 @@ public class DialogueManager : Singleton<DialogueManager>
     // Start is called before the first frame update
     void Start()
     {
-        DontDestroyOnLoad(this);
         parser = new DialogueParser();
         if (m_dialogueWindows.Count > 0)
             m_activeWindow = m_dialogueWindows[0];
@@ -41,14 +40,14 @@ public class DialogueManager : Singleton<DialogueManager>
 
     public void parseXML(string _path)
     {
-        m_activeDialogue = parser.parseXMLDialogue(_path);
+        m_activeDialogue = parser.ParseXMLDialogue(_path);
         m_hasDialogueActive = true;
         ContinueDialogue();
     }
 
     private void ContinueDialogue()
     {
-        if (m_hasDialogueActive)
+      /*  if (m_hasDialogueActive)
         {
             if (m_activeDialogue.m_dialogueStep < m_activeDialogue.m_entries.Count)
             {
@@ -106,7 +105,7 @@ public class DialogueManager : Singleton<DialogueManager>
                     CloseActiveWindow();
                 }
             }
-        }
+        }*/
     }
 
     private void OpenActiveWindow()
