@@ -17,7 +17,7 @@ public class InteractableItem : Interactable
     protected override void Start()
     {
         base.Start();
-        if (m_identity.ObjectIdentity.HasTakenInfos() && m_identity.ObjectIdentity.IsTaken())
+        if (m_identity.ObjectIdentity.IsTaken())
         {
             Taken();
         }

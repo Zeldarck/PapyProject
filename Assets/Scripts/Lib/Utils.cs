@@ -4,6 +4,12 @@ using System.Collections.Generic;
 using System.Globalization;
 using UnityEngine;
 
+
+#if UNITY_EDITOR
+using UnityEditor;
+#endif  //UNITY_EDITOR
+
+
 public static class Utils {
 
     static System.Random m_random = new System.Random();
@@ -189,4 +195,28 @@ public static class Utils {
     }
 
 
+    public static bool IsTapping(Touch a_touch, int m_minTap = 1)
+    {
+        return a_touch.tapCount > m_minTap && a_touch.phase == TouchPhase.Began;
+    }
+
+
+    public static void QuitApp()
+    {
+#if UNITY_EDITOR
+        EditorApplication.isPlaying = false;
+#else
+        Application.Quit();
+#endif //UNITY_EDITOR
+    }
+
+    public static bool IsSameSign(int a_number1, int a_number2)
+    {
+        return (a_number1 ^ a_number2) >= 0;
+    }
+
+    public static bool IsSameSign(float a_number1, float a_number2)
+    {
+        return IsSameSign((int)Mathf.Floor(a_number1), (int)Mathf.Floor(a_number2));
+    }
 }

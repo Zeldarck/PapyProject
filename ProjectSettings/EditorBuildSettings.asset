@@ -6,6 +6,9 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
+    path: Assets/Scenes/VerticalSlice/Enter.unity
+    guid: 0c7632d9bd7fcb04b9b9f24ba45daa36
+  - enabled: 1
     path: Assets/Scenes/Game.unity
     guid: 11022d6c7a3059148885ddeb86941343
   - enabled: 1
@@ -14,9 +17,6 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Player.unity
     guid: 885b112418ef97d4d86cd057f0e139c5
-  - enabled: 1
-    path: Assets/Scenes/VerticalSlice/Enter.unity
-    guid: 0c7632d9bd7fcb04b9b9f24ba45daa36
   - enabled: 1
     path: Assets/Scenes/VerticalSlice/Room.unity
     guid: 78fb8f14206295341a98061fe7cd3263
