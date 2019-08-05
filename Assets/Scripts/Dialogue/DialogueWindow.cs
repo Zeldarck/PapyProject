@@ -2,27 +2,28 @@
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using System;
 
 public class DialogueWindow : MonoBehaviour
 {
-    TextMeshProUGUI _characterZone;
-    TextMeshProUGUI _textZone;
+    TextMeshProUGUI m_characterZone;
+    TextMeshProUGUI m_textZone;
 
     private void Awake()
     {
-        _characterZone = transform.GetChild(1).GetChild(0).GetComponent<TextMeshProUGUI>();
-        _textZone = transform.GetChild(2).GetChild(0).GetComponent<TextMeshProUGUI>();
-    }
-
-    public void DisplayLine(DialogueLine line)
-    {
-        _characterZone.text = line.m_character;
-        _textZone.text = line.m_line;
+        m_characterZone = transform.GetChild(1).GetChild(0).GetComponent<TextMeshProUGUI>();
+        m_textZone = transform.GetChild(2).GetChild(0).GetComponent<TextMeshProUGUI>();
     }
 
     public void ResetWindow()
     {
-        _characterZone.text = "";
-        _textZone.text = "";
+        m_characterZone.text = "";
+        m_textZone.text = "";
+    }
+
+    internal void DisplayLine(string a_character, string a_line)
+    {
+        m_characterZone.text = a_character;
+        m_textZone.text = a_line;
     }
 }

@@ -5,23 +5,19 @@ using UnityEngine;
 
 public class DialogueLine : DialogueEntry
 {
-    public string m_character;
-    public string m_line;
+    string m_character;
+    string m_line;
 
     public DialogueLine(XmlNode a_node)
     {
         Debug.Log("[Dialogue] Create " + a_node.InnerText);
+        m_character = a_node.Attributes["character"].Value;
+        m_line = a_node.InnerText;
     }
-
-    /*public DialogueLine(string a_character, string a_line)
-    {
-        m_character = a_character;
-        m_line = a_line;
-    }*/
 
     public override bool Read()
     {
-        //TODO : Display line
+        DialogueManager.Instance.DisplayLine(m_character, m_line);
         return true;
     }
 }

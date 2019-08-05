@@ -6,25 +6,19 @@ using UnityEngine;
 public class DialogueWindowMode : DialogueContainer
 {
     int m_windowIndex;
-
-    /*public DialogueWindowMode(int a_windowIndex)
-    {
-        m_windowIndex = a_windowIndex;
-    }*/
-
+    bool m_alreadyRead = false;
     public DialogueWindowMode(XmlNode a_node) : base(a_node)
     {
-        /*m_entries = new List<DialogueEntry>();
-        foreach (XmlNode node in a_node.ChildNodes)
-        {
-            m_entries.Add(DialogueParser.GetEntriesInChild(this, node));
-        }*/
+        m_windowIndex = int.Parse(a_node.Attributes["id"].Value);
     }
 
 
     public override bool Read()
     {
-        //TO DO: set windows
+        if (!m_alreadyRead)
+        {
+            DialogueManager.Instance.SetWindow(m_windowIndex);
+        }
         return base.Read();
     }
 

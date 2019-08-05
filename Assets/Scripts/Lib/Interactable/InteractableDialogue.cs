@@ -21,7 +21,7 @@ public class InteractableDialogue : Interactable
     {
         bool res = base.Interact(a_player);
 
-        DialogueManager.Instance.parseXML(m_dialoguePath);
+        DialogueManager.Instance.ReadDialogue(m_dialoguePath);
         SpokeTo();
         return res;
     }
