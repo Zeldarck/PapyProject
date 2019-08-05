@@ -6,7 +6,6 @@ using UnityEngine;
 public class DialogueWindowMode : DialogueContainer
 {
     int m_windowIndex;
-    bool m_alreadyRead = false;
     public DialogueWindowMode(XmlNode a_node) : base(a_node)
     {
         m_windowIndex = int.Parse(a_node.Attributes["id"].Value);
@@ -15,10 +14,7 @@ public class DialogueWindowMode : DialogueContainer
 
     public override bool Read()
     {
-        if (!m_alreadyRead)
-        {
-            DialogueManager.Instance.SetWindow(m_windowIndex);
-        }
+        DialogueManager.Instance.SetWindow(m_windowIndex);
         return base.Read();
     }
 
